@@ -11,12 +11,11 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(email, password)
-      .then((acount) => {
-        dispatch(postAction.setIsLogin(true));
-        alert(`Login Sucessfully your userID is : ${acount.userId}"`);
-      })
-      .finally(() => navigate("/"));
+    login(email, password).then((acount) => {
+      dispatch(postAction.setIsLogin(true));
+      navigate("/");
+      alert(`Login Sucessfully your userID is : ${acount.userId}"`);
+    });
   };
   return (
     <div className="flex items-center justify-center h-screen mx-auto">

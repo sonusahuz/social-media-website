@@ -12,13 +12,12 @@ export default function Signup() {
   const [password, setPassword] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    register(email, password, name)
-      .then((acount) => {
-        console.log(acount);
-        dispatch(postAction.setIsLogin(false));
-        alert(`Account successfully created with ID ${acount.$id}"`);
-      })
-      .finally(() => navigate("/login"));
+    register(email, password, name).then((acount) => {
+      console.log(acount);
+      navigate("/login");
+      dispatch(postAction.setIsLogin(false));
+      alert(`Account successfully created with ID ${acount.$id}"`);
+    });
   };
   return (
     <div className="flex items-center justify-center mx-auto h-screen">
