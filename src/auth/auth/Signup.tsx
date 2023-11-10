@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { register } from "../appwrite";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
 import { postAction } from "../../store/postSlice";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    register(email, password, name).then((acount) => {
-      console.log(acount);
+    createUserWithEmailAndPassword(auth, email, password).then((acount) => {
       navigate("/login");
       dispatch(postAction.setIsLogin(false));
-      alert(`Account successfully created with ID ${acount.$id}"`);
+      alert(`Account successfully created Please Login Your Account"`);
     });
   };
   return (
@@ -28,15 +27,6 @@ export default function Signup() {
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col justify-center items-center">
             <div className="flex items-center justify-center flex-col gap-6">
-              <Input
-                crossOrigin="true"
-                size="lg"
-                type="text"
-                className="border w-[350px] text-sm rounded font-normal"
-                label="FullName"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
               <Input
                 crossOrigin="true"
                 size="lg"

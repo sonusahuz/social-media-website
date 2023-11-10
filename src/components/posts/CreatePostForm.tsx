@@ -1,39 +1,23 @@
 import React, { useState } from "react";
 import Modal from "../modal/Modal";
 import { X } from "lucide-react";
+import { ref, uploadBytes } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import {
-  createNewPosts,
-  bucket,
-  uploadImage,
-} from "../../auth/api/createPostApi";
-
+import { storage } from "../../auth/firebase/firebase";
 export default function CreatePostForm() {
   const [title, setTitle] = useState("");
-  const [blogImage, setBlogImage] = useState("");
+  const [blogImage, setBlogImage] = useState<any>();
   const navigate = useNavigate();
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") {
-        setBlogImage(reader.result);
-      }
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createNewPosts(title, blogImage)
-      .then((res) => {
-        console.log(res);
-      })
-      .finally(() => {
-        navigate("/profile");
-      });
+    if (blogImage === null) return;
+    const img = ref(storage, `img/${blogImage.name}`);
+    uploadBytes(img, blogImage).then((res) => {
+      console.log(res);
+      navigate("/profile");
+      alert("Post Successfully uploaded");
+    });
   };
 
   return (
@@ -48,13 +32,6 @@ export default function CreatePostForm() {
       <form action="" onSubmit={handleSubmit}>
         <div className="flex items-center justify-center bg-white w-[600px] h-auto rounded-lg">
           <div>
-            {blogImage && (
-              <img
-                src={blogImage}
-                alt=""
-                className="w-[680px] h-[450px] pt-10 px-3"
-              />
-            )}
             <textarea
               className="border-none w-[600px] mt-5 h-[100px] text-black text-sm p-4 focus:border-none focus:outline-none rounded-lg"
               onChange={(e) => setTitle(e.target.value)}
@@ -65,7 +42,9 @@ export default function CreatePostForm() {
               <input
                 type="file"
                 accept="image/*"
-                onChange={handleImage}
+                onChange={(e) => {
+                  setBlogImage(e.target.files?.[0]);
+                }}
                 className="block w-full mx-4 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
               />
               <button className="px-6 py-2 text-sm mx-4 bg-black text-white rounded-full">

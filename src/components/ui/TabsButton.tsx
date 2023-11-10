@@ -29,7 +29,7 @@ export default function TabsButton() {
       desc: (
         <div className="flex items-center justify-between gap-2 flex-wrap mt-6">
           {post?.user_posts.map((item) => (
-            <div className="">
+            <div className="" key={item.id}>
               <img src={item.blogImage} className="w-44 h-44 cursor-pointer" />
             </div>
           ))}
@@ -42,7 +42,7 @@ export default function TabsButton() {
       desc: (
         <div className="flex items-center justify-between gap-4 flex-wrap mt-6">
           {post?.user_like_posts.map((item) => (
-            <div className="">
+            <div className="" key={item.id}>
               <img
                 src={item.blogImage}
                 alt={item.title}
@@ -60,7 +60,10 @@ export default function TabsButton() {
       desc: (
         <div className="flex items-start justify-between flex-col gap-4 flex-wrap mt-6">
           {post?.followers.map((item) => (
-            <div className="flex items-center justify-between w-full">
+            <div
+              className="flex items-center justify-between w-full"
+              key={item.id}
+            >
               <div className="flex items-center justify-start gap-3">
                 <Avatar src={item.image} />
                 <div>
@@ -85,7 +88,10 @@ export default function TabsButton() {
       desc: (
         <div className="flex items-start justify-between flex-col gap-4 flex-wrap mt-6">
           {post?.following.map((item) => (
-            <div className="flex items-center justify-between w-full">
+            <div
+              className="flex items-center justify-between w-full"
+              key={item.id}
+            >
               <div className="flex items-center justify-between gap-3">
                 <Avatar src={item.image} />
                 <div>

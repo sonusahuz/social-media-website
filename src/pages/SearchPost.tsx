@@ -34,7 +34,7 @@ export default function SearchPost() {
           placeholder="Search..."
         />
         {filteredItems.map((post) => (
-          <div className="w-[600px]rounded-lg py-4 my-4">
+          <div className="w-[600px]rounded-lg py-4 my-4" key={post.id}>
             <div className="flex items-center justify-between">
               <div className="flex items-start justify-start">
                 <Link to={`/profile/${post.id}`}>

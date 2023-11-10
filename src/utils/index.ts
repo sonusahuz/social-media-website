@@ -16,6 +16,10 @@ export interface VideosType {
   username: string;
   id: string;
 }
+export interface ReelsType {
+  id: string;
+  link: string;
+}
 interface FollowersType {
   username: string;
   image: string;

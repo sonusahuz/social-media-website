@@ -1,3 +1,6 @@
+import { ref, uploadBytes } from "firebase/storage";
+import { storage } from "../auth/firebase/firebase";
+
 export const GET_POST_URL =
   "https://652b4cd74791d884f1fdb370.mockapi.io/todo/posts";
 
@@ -28,7 +31,7 @@ export const getSingleUserPosts = async (id: string) => {
 export const getReels = async () => {
   try {
     const response = await fetch(
-      "https://652b4cd74791d884f1fdb370.mockapi.io/todo/reels"
+      `https://652b4cd74791d884f1fdb370.mockapi.io/todo/reels`
     );
     const data = await response.json();
     return data;
@@ -36,5 +39,28 @@ export const getReels = async () => {
     alert(
       `Something went wrong Please Check your Network connection ${error.message}`
     );
+  }
+};
+export const getSingleReels = async (id: string) => {
+  try {
+    const response = await fetch(
+      `https://652b4cd74791d884f1fdb370.mockapi.io/todo/reels/${id}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    alert(
+      `Something went wrong Please Check your Network connection ${error.message}`
+    );
+  }
+};
+
+export const uploadImage = async (blogImage: any) => {
+  const storageRef = ref(storage, `images/${blogImage.name}`);
+  try {
+    await uploadBytes(storageRef, blogImage);
+    console.log("Image uploaded successfully!");
+  } catch (error) {
+    console.error("Error uploading image:", error);
   }
 };

@@ -12,6 +12,7 @@ import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import UserComments from "./UserComments";
 import { postAction } from "../../store/postSlice";
+import { auth } from "../../auth/firebase/firebase";
 
 export default function SinglePostPopup() {
   const [post, setPosts] = useState<PostType>();
@@ -30,7 +31,10 @@ export default function SinglePostPopup() {
   return (
     <Modal>
       <div className=" bg-white dark:bg-black dark:text-white w-[1000px] h-[620px]">
-        <div className="flex items-start justify-start flex-wrap">
+        <div
+          className="flex items-start justify-start flex-wrap"
+          key={post?.id}
+        >
           <div>
             <img src={post?.blogImage} alt="" className="h-[620px] w-[500px]" />
           </div>
@@ -56,7 +60,10 @@ export default function SinglePostPopup() {
               </div>
               <div>
                 {post?.comment.map((item) => (
-                  <div className="flex items-center justify-start my-4 gap-2">
+                  <div
+                    className="flex items-center justify-start my-4 gap-2"
+                    key={item.id}
+                  >
                     <Avatar src={item?.image} size="sm" className=" block" />
                     <div>
                       <h1 className=" font-medium text-sm">{item.username}</h1>
@@ -67,8 +74,15 @@ export default function SinglePostPopup() {
               </div>
               <div>
                 {isLike.comment.map((item) => (
-                  <div className="flex items-center justify-start my-4 gap-2">
-                    <Avatar src={item?.image} size="sm" className=" block" />
+                  <div
+                    className="flex items-center justify-start my-4 gap-2"
+                    key={item.id}
+                  >
+                    <Avatar
+                      src={`${auth.currentUser?.photoURL}`}
+                      size="sm"
+                      className=" block"
+                    />
                     <div>
                       <h1 className=" font-medium text-sm">{item.username}</h1>
                       <div className="flex items-center justify-start">

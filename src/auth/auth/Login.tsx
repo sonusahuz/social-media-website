@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { login } from "../appwrite";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
 import { postAction } from "../../store/postSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -11,15 +12,15 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(email, password).then((acount) => {
+    signInWithEmailAndPassword(auth, email, password).then((acount) => {
       dispatch(postAction.setIsLogin(true));
       navigate("/");
-      alert(`Login Sucessfully your userID is : ${acount.userId}"`);
+      alert(`Login Sucessfully`);
     });
   };
   return (
     <div className="flex items-center justify-center h-screen mx-auto">
-      <div className="flex items-center bg-white flex-col justify-center w-[400px] h-[400px] rounded shadow-lg mx-auto">
+      <div className="flex items-center bg-white flex-col justify-center w-[400px] h-[400px] rounded shadow-2xl mx-auto">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold py-2">Login to threads</h1>
         </div>
@@ -48,7 +49,7 @@ export default function Login() {
                 Login
               </button>
               <small>
-                Don't have an account
+                Don't have an account {}
                 <NavLink className="font-bold" to={"/signup"}>
                   Signup
                 </NavLink>

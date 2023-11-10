@@ -13,22 +13,28 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import FollowButton from "./FollowButton";
 import { Link } from "react-router-dom";
-import { getAllPost } from "../../auth/api/createPostApi";
-import { Models } from "appwrite";
+import { storage } from "../../auth/firebase/firebase";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 export default function AdminTabsButton() {
+  const [imgList, setImgList] = useState<any>([]);
   const [userPost, setPosts] = useState<PostType[]>([]);
-  const [allPost, setAllPost] = useState<Models.Document[]>([]);
   const posts = useSelector((state: RootState) => state.post);
   useEffect(() => {
     getUserPosts().then((res) => {
       setPosts(res);
     });
   }, []);
+  const imgs = ref(storage, "img/");
 
   useEffect(() => {
-    getAllPost().then((res) => {
-      setAllPost(res.documents);
+    listAll(imgs).then((res) => {
+      res.items.forEach((item) => {
+        getDownloadURL(item).then((res) => {
+          setImgList((prev: any) => [...prev, res]);
+          console.log(res);
+        });
+      });
     });
   }, []);
 
@@ -38,9 +44,9 @@ export default function AdminTabsButton() {
       value: "post",
       desc: (
         <div className="flex items-center justify-between gap-2 flex-wrap mt-6 dark:bg-black dark:text-white">
-          {allPost.map((item) => (
+          {imgList.map((item: any) => (
             <div className="">
-              <img src={item.blogImage} alt="" className="w-44 h-44" />
+              <img src={item} alt="" className="w-44 h-44" />
             </div>
           ))}
         </div>
@@ -54,7 +60,7 @@ export default function AdminTabsButton() {
           {posts.like.length > 0 ? (
             <div className="flex items-center justify-between gap-4 flex-wrap mt-6">
               {posts.like?.map((item) => (
-                <div className="">
+                <div className="" key={item.id}>
                   <Link to={`/post/${item.id}`}>
                     <img src={item.blogImage} alt="" className="w-44 h-44" />
                   </Link>
@@ -74,7 +80,10 @@ export default function AdminTabsButton() {
       desc: (
         <div className="flex items-start justify-between flex-col gap-4 flex-wrap mt-6">
           {userPost?.map((item) => (
-            <div className="flex items-center justify-between w-full">
+            <div
+              className="flex items-center justify-between w-full"
+              key={item.id}
+            >
               <div className="flex items-center justify-between gap-3">
                 <Avatar src={item.image} />
                 <div>
@@ -100,7 +109,10 @@ export default function AdminTabsButton() {
           {posts.follow.length > 0 ? (
             <div className="flex items-start justify-between flex-col gap-4 flex-wrap mt-6">
               {posts?.follow?.map((item) => (
-                <div className="flex items-center justify-between w-full">
+                <div
+                  className="flex items-center justify-between w-full"
+                  key={item.id}
+                >
                   <div className="flex items-center justify-start gap-3">
                     <Avatar src={item.image} />
                     <div>
@@ -131,7 +143,7 @@ export default function AdminTabsButton() {
           {posts.like.length > 0 ? (
             <div className="flex items-center justify-between gap-4 flex-wrap mt-6">
               {posts.savePost?.map((item) => (
-                <div className="">
+                <div className="" key={item.id}>
                   <Link to={`/post/${item.id}`}>
                     <img src={item.blogImage} alt="" className="w-44 h-44" />
                   </Link>

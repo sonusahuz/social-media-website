@@ -43,8 +43,11 @@ export default function PostList() {
       <div className="flex items-center justify-center mx-auto gap-3 dark:bg-black dark:text-white pt-3">
         <div className="w-[600px] mx-auto dark:text-white dark:bg-black">
           {filteredItems.map((post) => (
-            <div className="w-[600px] h-[580px] bg-gray-100 rounded-lg py-4 px-4 my-4 dark:text-white dark:bg-black">
-              <PostCard post={post} key={post.id} />
+            <div
+              key={post.id}
+              className="w-[600px] h-[580px] bg-gray-100 rounded-lg py-4 px-4 my-4 dark:text-white dark:bg-black"
+            >
+              <PostCard post={post} />
             </div>
           ))}
         </div>
