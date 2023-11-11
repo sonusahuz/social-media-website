@@ -15,30 +15,21 @@ export default function App() {
   const isLogin = useSelector((state: RootState) => state.post.isLogin);
   return (
     <>
-      {isLogin ? (
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route element={<PrivateRoutes />}>
-              <Route path="/" element={<PostList />} />
-              <Route path="/search" element={<SearchPost />} />
-              <Route path="/create" element={<CreatePostForm />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:id" element={<SingleUserProfile />} />
-              <Route path="/post/:id" element={<SinglePostPopup />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      ) : (
-        <>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </BrowserRouter>
-        </>
-      )}
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<PostList />} />
+            <Route path="/search" element={<SearchPost />} />
+            <Route path="/create" element={<CreatePostForm />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:id" element={<SingleUserProfile />} />
+            <Route path="/post/:id" element={<SinglePostPopup />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
