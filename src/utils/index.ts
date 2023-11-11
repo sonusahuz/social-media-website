@@ -20,6 +20,11 @@ export interface ReelsType {
   id: string;
   link: string;
 }
+export interface StatusType {
+  id: string;
+  status: string;
+  image: string;
+}
 interface FollowersType {
   username: string;
   image: string;
@@ -42,6 +47,7 @@ export interface PostType {
   user_like_posts: UserPosts[];
   comment: Comments[];
   videos: VideosType[];
+  status: StatusType[];
 }
 
 export interface SinglePostType {
@@ -61,6 +67,7 @@ export interface SinglePostType {
     user_like_posts: UserPosts[];
     comment: Comments[];
     videos: VideosType[];
+    status: StatusType[];
   };
 }
 

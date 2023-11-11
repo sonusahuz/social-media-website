@@ -15,17 +15,17 @@ import FollowButton from "./FollowButton";
 import { Link } from "react-router-dom";
 import { storage } from "../../auth/firebase/firebase";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../layouts/Loading";
 export default function AdminTabsButton() {
   const [imgList, setImgList] = useState<any>([]);
   const [userPost, setPosts] = useState<PostType[]>([]);
   const posts = useSelector((state: RootState) => state.post);
-  useEffect(() => {
-    getUserPosts().then((res) => {
-      setPosts(res);
-    });
-  }, []);
   const imgs = ref(storage, "img/");
+  const { data: post, isLoading } = useQuery<PostType[]>({
+    queryKey: ["post"],
+    queryFn: getUserPosts,
+  });
 
   useEffect(() => {
     listAll(imgs).then((res) => {
@@ -37,6 +37,8 @@ export default function AdminTabsButton() {
       });
     });
   }, []);
+
+  if (isLoading) return <Loading />;
 
   const data = [
     {
@@ -79,7 +81,7 @@ export default function AdminTabsButton() {
       value: "followers",
       desc: (
         <div className="flex items-start justify-between flex-col gap-4 flex-wrap mt-6">
-          {userPost?.map((item) => (
+          {post?.map((item) => (
             <div
               className="flex items-center justify-between w-full"
               key={item.id}

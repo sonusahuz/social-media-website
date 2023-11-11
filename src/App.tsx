@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import CreatePostForm from "./components/posts/CreatePostForm";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
+import StatusModal from "./components/ui/StatusModal";
 export default function App() {
   const isLogin = useSelector((state: RootState) => state.post.isLogin);
   return (
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/" element={<PostList />} />
             <Route path="/search" element={<SearchPost />} />
             <Route path="/create" element={<CreatePostForm />} />
+            <Route path="/status/:id" element={<StatusModal />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:id" element={<SingleUserProfile />} />
             <Route path="/post/:id" element={<SinglePostPopup />} />
