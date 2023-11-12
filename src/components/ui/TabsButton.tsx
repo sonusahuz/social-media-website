@@ -30,7 +30,7 @@ export default function TabsButton() {
         <div className="flex items-center justify-between gap-2 flex-wrap mt-6">
           {post?.user_posts.map((item) => (
             <div className="" key={item.id}>
-              <img src={item.blogImage} className="w-44 h-44 cursor-pointer" />
+              <img src={item?.blogImage} className="w-44 h-44 cursor-pointer" />
             </div>
           ))}
         </div>

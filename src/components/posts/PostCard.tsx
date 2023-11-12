@@ -1,7 +1,7 @@
 import { SinglePostType } from "../../utils";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { MessageSquare, Save, Send } from "lucide-react";
+import { useSelector } from "react-redux";
+import { MessageSquare, Send } from "lucide-react";
 import { Avatar } from "@material-tailwind/react";
 import { RootState } from "../../store/store";
 import FollowButton from "../ui/FollowButton";

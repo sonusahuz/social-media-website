@@ -10,12 +10,21 @@ export default function DarkModeButton() {
     }
   }, [toggle]);
   return (
-    <li onClick={() => setToogle(!toggle)} className="link dark:text-white">
-      {toggle ? (
-        <SunMoon size={28} className="dark:text-white dark:hover:text-black" />
-      ) : (
-        <Moon size={28} className="dark:text-white dark:hover:text-black" />
-      )}
-    </li>
+    <div
+      onClick={() => setToogle(!toggle)}
+      className=" dark:text-white flex items-center justify-start gap-3"
+    >
+      <div>
+        {toggle ? (
+          <SunMoon
+            size={25}
+            className="dark:text-white dark:hover:text-white"
+          />
+        ) : (
+          <Moon size={25} className="dark:text-white dark:hover:text-white" />
+        )}
+      </div>
+      <span className=" cursor-pointer">{toggle ? "Light" : "Dark"}</span>
+    </div>
   );
 }

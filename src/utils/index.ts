@@ -78,6 +78,7 @@ interface StateType {
   savePost: PostType[];
   isLogin: boolean;
   comment: Comments[];
+  notification: string;
 }
 
 export const initialState: StateType = {
@@ -87,9 +88,16 @@ export const initialState: StateType = {
   savePost: [],
   isLogin: false,
   comment: [],
+  notification: "",
 };
 
 export interface VideoType {
   id: number;
   link: string;
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  fullName: string;
 }

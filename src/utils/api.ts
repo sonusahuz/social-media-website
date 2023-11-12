@@ -1,8 +1,16 @@
-import { ref, uploadBytes } from "firebase/storage";
-import { storage } from "../auth/firebase/firebase";
+import axios from "axios";
+import { auth, storage } from "../auth/firebase/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 export const GET_POST_URL =
   "https://652b4cd74791d884f1fdb370.mockapi.io/todo/posts";
+
+export const USER_PROFILE_API =
+  "https://652b4cd74791d884f1fdb370.mockapi.io/todo/profile";
 
 export const getUserPosts = async () => {
   try {
@@ -28,26 +36,42 @@ export const getSingleUserPosts = async (id: string) => {
   }
 };
 
-export const getReels = async () => {
+// login user
+export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await fetch(
-      `https://652b4cd74791d884f1fdb370.mockapi.io/todo/reels`
-    );
-    const data = await response.json();
-    return data;
-  } catch (error: any) {
-    alert(
-      `Something went wrong Please Check your Network connection ${error.message}`
-    );
+    await signInWithEmailAndPassword(auth, email, password);
+    console.log("Login Successfully");
+  } catch (error) {
+    console.error("something went wrong", error);
   }
 };
-export const getSingleReels = async (id: string) => {
+
+// sign up user
+export const signupUser = async (email: string, password: string) => {
   try {
-    const response = await fetch(
-      `https://652b4cd74791d884f1fdb370.mockapi.io/todo/reels/${id}`
-    );
-    const data = await response.json();
-    return data;
+    await createUserWithEmailAndPassword(auth, email, password);
+    console.log("Login Successfully");
+  } catch (error) {
+    console.error("something went wrong", error);
+  }
+};
+
+//logout user
+export const logoutUser = async () => {
+  try {
+    await signOut(auth);
+    console.log("Login Successfully");
+  } catch (error) {
+    console.error("something went wrong", error);
+  }
+};
+
+// get user details
+
+export const getUserProfile = async () => {
+  try {
+    const response = await axios.get(USER_PROFILE_API);
+    return response.data;
   } catch (error: any) {
     alert(
       `Something went wrong Please Check your Network connection ${error.message}`
@@ -55,12 +79,35 @@ export const getSingleReels = async (id: string) => {
   }
 };
 
-export const uploadImage = async (blogImage: any) => {
-  const storageRef = ref(storage, `images/${blogImage.name}`);
+// single user details
+
+export const getSingleProfile = async (id: string) => {
   try {
-    await uploadBytes(storageRef, blogImage);
-    console.log("Image uploaded successfully!");
-  } catch (error) {
-    console.error("Error uploading image:", error);
+    const response = await axios.get(`${USER_PROFILE_API}/${id}`);
+    return response.data;
+  } catch (error: any) {
+    alert(
+      `Something went wrong Please Check your Network connection ${error.message}`
+    );
+  }
+};
+
+// edit user profile
+
+export const editUserProfile = async (
+  id: string,
+  username: string,
+  fullName: string
+) => {
+  try {
+    const response = await axios.put(`${USER_PROFILE_API}/${id}`, {
+      username,
+      fullName,
+    });
+    return response.data;
+  } catch (error: any) {
+    alert(
+      `Something went wrong Please Check your Network connection ${error.message}`
+    );
   }
 };

@@ -40,14 +40,6 @@ export const postSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    editComment: (state, action: PayloadAction<{ id: string; text: any }>) => {
-      const { id, text } = action.payload;
-      const task = state.comment.find((task) => task.id === id);
-      if (task) {
-        task.text = text;
-        task.id = id;
-      }
-    },
   },
 });
 

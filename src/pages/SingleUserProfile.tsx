@@ -14,7 +14,6 @@ export default function SingleUserProfile() {
   useEffect(() => {
     getSingleUserPosts(`${id}`).then((res) => {
       setPosts(res);
-      console.log(res.videos);
     });
   }, []);
   return (

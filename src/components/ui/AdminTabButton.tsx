@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getUserPosts } from "../../utils/api";
-import { PostType } from "../../utils";
+import { getUserPosts, getUserProfile } from "../../utils/api";
+import { PostType, UserProfile } from "../../utils";
 import { Avatar } from "@material-tailwind/react";
 import {
   Tabs,
@@ -9,23 +9,32 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import FollowButton from "./FollowButton";
-import { Link } from "react-router-dom";
-import { storage } from "../../auth/firebase/firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, storage } from "../../auth/firebase/firebase";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../layouts/Loading";
+import { postAction } from "../../store/postSlice";
 export default function AdminTabsButton() {
   const [imgList, setImgList] = useState<any>([]);
-  const [userPost, setPosts] = useState<PostType[]>([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [user, setUser] = useState<UserProfile[]>([]);
   const posts = useSelector((state: RootState) => state.post);
   const imgs = ref(storage, "img/");
   const { data: post, isLoading } = useQuery<PostType[]>({
     queryKey: ["post"],
     queryFn: getUserPosts,
   });
+
+  useEffect(() => {
+    getUserProfile().then((res) => {
+      setUser(res);
+    });
+  }, []);
 
   useEffect(() => {
     listAll(imgs).then((res) => {
@@ -38,8 +47,13 @@ export default function AdminTabsButton() {
     });
   }, []);
 
-  if (isLoading) return <Loading />;
+  const handlerDelete = (id: string) => {
+    dispatch(postAction.setIsLogin(false));
+    alert("Your threads account successfully deleted");
+    navigate("/login");
+  };
 
+  if (isLoading) return <Loading />;
   const data = [
     {
       label: "Posts",
@@ -47,7 +61,7 @@ export default function AdminTabsButton() {
       desc: (
         <div className="flex items-center justify-between gap-2 flex-wrap mt-6 dark:bg-black dark:text-white">
           {imgList.map((item: any) => (
-            <div className="">
+            <div className="" key={item.id}>
               <img src={item} alt="" className="w-44 h-44" />
             </div>
           ))}
@@ -163,12 +177,23 @@ export default function AdminTabsButton() {
       value: "about",
       desc: (
         <div className="flex items-center justify-center text-center gap-4 mt-6">
-          {/* <div>
-            <Avatar src={post?.image} size="xxl" />
-            <h1 className="text-3xl mt-2 font-bold">{post?.name}</h1>
-            <h1>{post?.username}</h1>
-            <h1>{post?.join_date}</h1>
-          </div> */}
+          <div>
+            {user.map((item) => (
+              <div>
+                <Avatar src={"/threadsback.avif"} size="xxl" />
+                <h1 className="text-3xl mt-2 font-bold">{item.fullName}</h1>
+                <h1>{item.username}</h1>
+                <h1>{auth.currentUser?.email}</h1>
+                <h1>{auth.currentUser?.metadata.creationTime}</h1>
+                <button
+                  onClick={() => handlerDelete(item.id)}
+                  className="px-2 py-2.5 mt-3 bg-red-700  dark:text-white dark:bg-red-500 text-white rounded w-28 text-xs text-center "
+                >
+                  Delete Account
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       ),
     },
