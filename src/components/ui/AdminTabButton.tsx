@@ -41,7 +41,6 @@ export default function AdminTabsButton() {
       res.items.forEach((item) => {
         getDownloadURL(item).then((res) => {
           setImgList((prev: any) => [...prev, res]);
-          console.log(res);
         });
       });
     });
