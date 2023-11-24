@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Modal from "../modal/Modal";
+import Modal from "../components/layouts/Modal";
 import { X } from "lucide-react";
 import { ref, uploadBytes } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import { storage } from "../../auth/firebase/firebase";
+import { storage } from "../auth/firebase";
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [blogImage, setBlogImage] = useState<any>();

@@ -5,16 +5,49 @@ import { useDispatch, useSelector } from "react-redux";
 import { postAction } from "../../store/postSlice";
 import { RootState } from "../../store/store";
 import { logoutUser } from "../../utils/api";
+
 export default function SideBar() {
   const isLogin = useSelector((state: RootState) => state.post.isLogin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     logoutUser().then(() => {
-      navigate("/login");
-      dispatch(postAction.setIsLogin(false));
+      setTimeout(() => {
+        navigate("/login");
+        alert("Logout Successfully");
+        dispatch(postAction.setIsLogin(false));
+      }, 2000);
     });
   };
+
+  const navLink = [
+    {
+      name: "Home",
+      url: "/",
+      icons: <Home className="dark:text-white" size={23} />,
+    },
+    {
+      name: "Explore",
+      url: "/explore",
+      icons: <Compass className="dark:text-white" size={23} />,
+    },
+    {
+      name: "Search",
+      url: "/search",
+      icons: <Search className="dark:text-white" size={23} />,
+    },
+    {
+      name: "Create",
+      url: "/create",
+      icons: <PlusSquare className="dark:text-white" size={23} />,
+    },
+    {
+      name: "Profile",
+      url: "/profile",
+      icons: <User2 className="dark:text-white" size={23} />,
+    },
+    { name: "", url: "", icons: <DarkModeButton /> },
+  ];
 
   return (
     <>
@@ -25,57 +58,22 @@ export default function SideBar() {
           </div>
           <div className="">
             <ul className="flex items-start justify-start flex-col gap-10 mt-14">
-              <NavLink
-                to={"/"}
-                className="flex items-center justify-start gap-3"
-              >
-                <Home className="dark:text-white" size={23} />
-                Home
-              </NavLink>
-              <NavLink
-                to={"/explore"}
-                className="flex items-start justify-start gap-3 dark:text-white"
-              >
-                <Compass className="dark:text-white" size={23} />
-                Explore
-              </NavLink>
-              <NavLink
-                to={"/search"}
-                className="flex items-start justify-start gap-3"
-              >
-                <Search className="dark:text-white" size={23} />
-                Search
-              </NavLink>
-
-              <NavLink
-                to={"/create"}
-                className="flex items-start justify-start gap-3"
-              >
-                <PlusSquare className="dark:text-white" size={23} />
-                Create
-              </NavLink>
-              <NavLink
-                to={"/profile"}
-                className="flex items-start justify-start gap-3"
-              >
-                <User2 className="dark:text-white" size={23} />
-                Profile
-              </NavLink>
-              <div className="flex items-start justify-start gap-3">
-                <DarkModeButton />
-              </div>
-              {isLogin && (
-                <li
-                  className="flex items-start justify-start gap-3 cursor-pointer"
-                  onClick={handleLogout}
+              {navLink.map((item) => (
+                <NavLink
+                  to={item.url}
+                  className="flex items-center justify-start gap-3"
                 >
-                  <LogOut
-                    className="dark:text-white cursor-pointer"
-                    size={23}
-                  />
-                  Logout
-                </li>
-              )}
+                  {item.icons}
+                  {item.name}
+                </NavLink>
+              ))}
+              <li
+                className="flex items-start justify-start gap-3 cursor-pointer"
+                onClick={handleLogout}
+              >
+                <LogOut className="dark:text-white cursor-pointer" size={23} />
+                Logout
+              </li>
             </ul>
           </div>
         </header>

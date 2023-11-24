@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import FollowButton from "./FollowButton";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, storage } from "../../auth/firebase/firebase";
+import { auth, storage } from "../../auth/firebase";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../layouts/Loading";

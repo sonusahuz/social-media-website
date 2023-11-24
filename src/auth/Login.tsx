@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Input } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
-import { postAction } from "../../store/postSlice";
-import { loginUser } from "../../utils/api";
+import { postAction } from "../store/postSlice";
+import { loginUser } from "../utils/api";
+import CustomInput from "../components/ui/CustomInput";
+import CustomButton from "../components/ui/CustomButton";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -11,6 +12,19 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      alert("Please provide both email and password.");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please provide a valid email address.");
+      return;
+    }
+    if (password.length < 6) {
+      alert("Password should be at least 6 characters long.");
+      return;
+    }
     loginUser(email, password).then(() => {
       dispatch(postAction.setIsLogin(true));
       navigate("/");
@@ -28,27 +42,19 @@ export default function Login() {
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col justify-between items-center">
             <div className="flex items-center justify-between gap-6 flex-col w-full">
-              <Input
+              <CustomInput
                 type="text"
-                crossOrigin="true"
                 label="Email"
-                size="lg"
-                className="border w-[350px] text-sm rounded font-normal "
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-              <Input
-                crossOrigin="true"
+              <CustomInput
                 type="password"
                 label="Password"
-                size="lg"
-                className="border w-[350px] text-sm rounded font-normal"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              <button className="w-[350px] bg-black text-white p-3 rounded">
-                Login
-              </button>
+              <CustomButton label="Login" className="w-[350px] p-3" />
               <small className=" dark:text-black">
                 Don't have an account {}
                 <NavLink className="font-bold" to={"/signup"}>

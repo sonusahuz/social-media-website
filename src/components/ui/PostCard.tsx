@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { MessageSquare, Send } from "lucide-react";
 import { Avatar } from "@material-tailwind/react";
 import { RootState } from "../../store/store";
-import FollowButton from "../ui/FollowButton";
-import LikeButton from "../ui/LikeButton";
-import SaveButton from "../ui/SaveButton";
+import FollowButton from "./FollowButton";
+import LikeButton from "./LikeButton";
+import SaveButton from "./SaveButton";
 export default function PostCard({ post }: SinglePostType) {
   const isLike = useSelector((state: RootState) => state.post.like);
   const isFollowing = useSelector((state: RootState) => state.post.follow);

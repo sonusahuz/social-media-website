@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../modal/Modal";
+import Modal from "../layouts/Modal";
 import { getSingleUserPosts } from "../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostType } from "../../utils";
@@ -12,7 +12,7 @@ import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import UserComments from "./UserComments";
 import { postAction } from "../../store/postSlice";
-import { auth } from "../../auth/firebase/firebase";
+import { auth } from "../../auth/firebase";
 
 export default function SinglePostPopup() {
   const [post, setPosts] = useState<PostType>();

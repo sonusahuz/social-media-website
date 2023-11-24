@@ -1,5 +1,5 @@
 import axios from "axios";
-import { auth, storage } from "../auth/firebase/firebase";
+import { auth } from "../auth/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

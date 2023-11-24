@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../modal/Modal";
+import Modal from "../layouts/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSingleUserPosts } from "../../utils/api";
 import { X } from "lucide-react";

@@ -3,7 +3,7 @@ import { PostType } from "../../utils";
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "./PostCard";
 import Loading from "../layouts/Loading";
-import UserStatus from "../ui/UserStatus";
+import UserStatus from "./UserStatus";
 export default function PostList() {
   const { data: posts, isLoading } = useQuery<PostType[]>({
     queryKey: ["post"],

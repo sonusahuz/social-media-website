@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../components/modal/Modal";
+import Modal from "../components/layouts/Modal";
 import { UserCircle2, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "@material-tailwind/react";

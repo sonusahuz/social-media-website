@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Input } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
-import { postAction } from "../../store/postSlice";
+import { postAction } from "../store/postSlice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth } from "./firebase";
+import CustomInput from "../components/ui/CustomInput";
+import CustomButton from "../components/ui/CustomButton";
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,6 +14,19 @@ export default function Signup() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      alert("Please provide both email and password.");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please provide a valid email address.");
+      return;
+    }
+    if (password.length < 6) {
+      alert("Password should be at least 6 characters long.");
+      return;
+    }
     createUserWithEmailAndPassword(auth, email, password).then(() => {
       navigate("/login");
       dispatch(postAction.setIsLogin(false));
@@ -31,27 +45,19 @@ export default function Signup() {
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col justify-center items-center">
             <div className="flex items-center justify-center flex-col gap-6 w-full">
-              <Input
-                crossOrigin="true"
-                size="lg"
+              <CustomInput
                 type="text"
-                className="border w-[350px] text-sm rounded font-normal"
-                label="Email "
+                label="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-              <Input
-                crossOrigin="true"
-                size="lg"
+              <CustomInput
                 type="password"
-                className="border w-[350px] text-sm rounded font-normal"
                 label="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              <button className="w-[350px] bg-black text-white p-3 rounded">
-                Sign up
-              </button>
+              <CustomButton label="Signup" className="w-[350px] p-3" />
               <small className=" dark:text-black">
                 Already have an account{" "}
                 <NavLink className="font-bold" to={"/login"}>
