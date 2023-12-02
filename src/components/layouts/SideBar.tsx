@@ -24,29 +24,34 @@ export default function SideBar() {
     {
       name: "Home",
       url: "/",
+      id: "1",
       icons: <Home className="dark:text-white" size={23} />,
     },
     {
       name: "Explore",
       url: "/explore",
+      id: "2",
       icons: <Compass className="dark:text-white" size={23} />,
     },
     {
       name: "Search",
       url: "/search",
+      id: "3",
       icons: <Search className="dark:text-white" size={23} />,
     },
     {
       name: "Create",
       url: "/create",
+      id: "4",
       icons: <PlusSquare className="dark:text-white" size={23} />,
     },
     {
       name: "Profile",
       url: "/profile",
+      id: "5",
       icons: <User2 className="dark:text-white" size={23} />,
     },
-    { name: "", url: "", icons: <DarkModeButton /> },
+    { id: "6", name: "", url: "", icons: <DarkModeButton /> },
   ];
 
   return (
@@ -60,8 +65,9 @@ export default function SideBar() {
             <ul className="flex items-start justify-start flex-col gap-10 mt-14">
               {navLink.map((item) => (
                 <NavLink
+                  key={item.id}
                   to={item.url}
-                  className="flex items-center justify-start gap-3"
+                  className="flex items-center justify-start gap-3 dark:text-white"
                 >
                   {item.icons}
                   {item.name}

@@ -53,6 +53,7 @@ export default function AdminTabsButton() {
   };
 
   if (isLoading) return <Loading />;
+
   const data = [
     {
       label: "Posts",
@@ -178,7 +179,7 @@ export default function AdminTabsButton() {
         <div className="flex items-center justify-center text-center gap-4 mt-6">
           <div>
             {user.map((item) => (
-              <div>
+              <div key={item.id}>
                 <Avatar src={"/threadsback.avif"} size="xxl" />
                 <h1 className="text-3xl mt-2 font-bold">{item.fullName}</h1>
                 <h1>{item.username}</h1>

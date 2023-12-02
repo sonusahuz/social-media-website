@@ -5,6 +5,8 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/es/persistStore";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,12 +20,16 @@ const client = new QueryClient({
   },
 });
 
+let persistor = persistStore(store);
+
 root.render(
   <QueryClientProvider client={client}>
     <Provider store={store}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   </QueryClientProvider>
 );

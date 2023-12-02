@@ -16,8 +16,7 @@ export default function Login() {
       alert("Please provide both email and password.");
       return;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!email.includes("@")) {
       alert("Please provide a valid email address.");
       return;
     }

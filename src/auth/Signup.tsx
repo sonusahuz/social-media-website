@@ -11,15 +11,13 @@ export default function Signup() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
       alert("Please provide both email and password.");
       return;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!email.includes("@")) {
       alert("Please provide a valid email address.");
       return;
     }

@@ -62,6 +62,7 @@ export default function Profile() {
             </NavLink>
             {users.map((item) => (
               <NavLink
+                key={item.id}
                 to={`/edit-profile/${item.id}`}
                 className="px-2 py-2.5 mt-3 bg-black text-white rounded w-28 text-xs text-center dark:bg-white dark:text-black"
               >
