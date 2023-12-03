@@ -24,7 +24,7 @@ export default function DarkModeButton() {
           <Moon size={25} className="dark:text-white dark:hover:text-white" />
         )}
       </div>
-      <span className=" cursor-pointer">{toggle ? "Light" : "Dark"}</span>
+      <span className="cursor-pointer">{toggle ? "Light" : "Dark"}</span>
     </div>
   );
 }
