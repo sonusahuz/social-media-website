@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import withLazy from "./components/layouts/LazyLoad";
+import withLazy from "./components/layout/LazyLoad";
 const Signup = withLazy(() => import("./auth/Signup"));
 const Login = withLazy(() => import("./auth/Login"));
 const PostList = withLazy(() => import("./components/ui/PostList"));
@@ -11,7 +11,7 @@ const SinglePostPopup = withLazy(
 const PrivateRoutes = withLazy(() => import("./auth/PrivateRoutes"));
 const Profile = withLazy(() => import("./pages/Profile"));
 const StatusModal = withLazy(() => import("./components/ui/StatusModal"));
-const Layout = withLazy(() => import("./components/layouts/Layouts"));
+const Layout = withLazy(() => import("./components/layout/Layout"));
 const Explore = withLazy(() => import("./pages/Explore"));
 const CreatePost = withLazy(() => import("./pages/CreatePost"));
 const EditProfile = withLazy(() => import("./pages/EditProfile"));

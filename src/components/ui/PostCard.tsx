@@ -22,7 +22,7 @@ export default function PostCard({ post }: SinglePostType) {
             <h1 className="ml-2 font-bold">{post?.username?.toLowerCase()}</h1>
             <h1 className="ml-2 py-0 mb-3">{post?.title}</h1>
           </div>
-          <div className="ml-[460px] absolute">
+          <div className="lg:ml-[460px] absolute hidden lg:block">
             <FollowButton
               isFollow={isFollowing.some((p) => p.id === post.id)}
               data={post}
@@ -36,8 +36,8 @@ export default function PostCard({ post }: SinglePostType) {
             className="rounded-lg cursor-pointer"
           />
         </Link>
-        <div className="flex items-center py-4 justify-between gap-4">
-          <div className="flex items-center py-4 justify-start gap-4">
+        <div className="flex items-center lg:py-4 py-2 justify-between gap-4">
+          <div className="flex items-center lg:py-4 py-2 justify-start gap-4">
             <LikeButton
               isLike={isLike.some((p) => p.id === post?.id)}
               data={post}

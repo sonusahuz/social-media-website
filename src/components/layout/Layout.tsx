@@ -1,9 +1,9 @@
 import React from "react";
-import SideBar from "../layouts/SideBar";
+import SideBar from "./SideBar";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className=" dark:text-white dark:bg-black pt-6 ">
-      <div className="">
+      <div className="hidden lg:block">
         <SideBar />
       </div>
       <div className="">{children}</div>

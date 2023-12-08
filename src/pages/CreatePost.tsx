@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "../components/layouts/Modal";
+import Modal from "../components/layout/Modal";
 import { X } from "lucide-react";
 import { ref, uploadBytes } from "firebase/storage";
 import { useNavigate } from "react-router-dom";

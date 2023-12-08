@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUserPosts } from "../utils/api";
-import Loading from "../components/layouts/Loading";
+import Loading from "../components/layout/Loading";
 import { PostType } from "../utils";
 import { Link } from "react-router-dom";
 export default function Explore() {

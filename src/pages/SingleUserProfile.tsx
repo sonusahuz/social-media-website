@@ -19,7 +19,7 @@ export default function SingleUserProfile() {
   return (
     <div className="flex items-center justify-center mx-auto gap-3 dark:text-white dark:bg-black mb-20">
       <div>
-        <div className="w-[600px]">
+        <div className="w-[360px] lg:w-[600px]">
           <div>
             <img
               src={post?.posts_banner}
@@ -38,7 +38,7 @@ export default function SingleUserProfile() {
               <h1 className="text-black text-sm dark:text-white">
                 {post?.bio}
               </h1>
-              <div className="">
+              <div>
                 <ul className="flex items-center justify-between gap-5">
                   <li>{post?.user_posts.length} Posts</li>
                   <li>{post?.followers.length} Followers</li>
@@ -47,7 +47,7 @@ export default function SingleUserProfile() {
                 </ul>
               </div>
             </div>
-            <div>
+            <div className="">
               <Avatar
                 src={`${post?.image}`}
                 size="xxl"

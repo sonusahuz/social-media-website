@@ -23,7 +23,7 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
       label={label}
       size="lg"
       name={name}
-      className="border w-[350px] text-sm rounded font-normal "
+      className="border w-[350px] text-sm rounded font-normal"
       onChange={onChange}
       value={value}
     />

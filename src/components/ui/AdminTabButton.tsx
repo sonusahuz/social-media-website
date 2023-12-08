@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, storage } from "../../auth/firebase";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { useQuery } from "@tanstack/react-query";
-import Loading from "../layouts/Loading";
+import Loading from "../layout/Loading";
 import { postAction } from "../../store/postSlice";
 export default function AdminTabsButton() {
   const [imgList, setImgList] = useState<any>([]);

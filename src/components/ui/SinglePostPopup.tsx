@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../layouts/Modal";
+import Modal from "../layout/Modal";
 import { getSingleUserPosts } from "../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostType } from "../../utils";
@@ -103,7 +103,7 @@ export default function SinglePostPopup() {
                 ))}
               </div>
             </div>
-            <div className=" w-[450px]">
+            <div className="w-[450px]">
               <div className="flex items-center py-4 justify-between gap-4 ">
                 <div className="flex items-center py-4 justify-start gap-4">
                   <LikeButton

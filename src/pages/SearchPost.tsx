@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@material-tailwind/react";
-import Loading from "../components/layouts/Loading";
+import Loading from "../components/layout/Loading";
 import { PostType } from "../utils";
 import { useQuery } from "@tanstack/react-query";
 import { getUserPosts } from "../utils/api";
